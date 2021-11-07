@@ -40,7 +40,13 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName) {
 }
 //데이터 불러오기
 void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
+    //이전에 불러오기를 실행해서 이미 파일이 열려있는
+    //상태라면 파일을 닫고 다시 오픈
+    if (fin.is_open()) {
+        fin.close();
+    }
     fin.open(fileName + ".txt");
+
     if (fin.fail()) {
         system("cls");
         cout << "저장된 데이터가 없습니다." << endl;
@@ -50,6 +56,7 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
         //txt파일로 저장된 데이터를 담는 변수
         string loadSaveFile;
 
+        record.ResetVector();
         record.ResetInputTotalNum();
         //저장된 데이터가 끝이 날때까지 반복
         while (getline(fin, loadSaveFile)) {
