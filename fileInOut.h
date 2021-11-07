@@ -7,8 +7,8 @@ class FileInOut {
     ofstream fout;
 public:
     ~FileInOut();
-    void OpenFileOut();
-    void WriteFile(RecordNoteClass& record);
-    void ReadFile(RecordNoteClass& record);
+    void OpenFileOut(string fileName);
+    void WriteFile(RecordNoteClass& record, string fileName);
+    void ReadFile(RecordNoteClass& record, string fileName);
     void RoadRecordNote(RecordNoteClass& record, string loadSaveFile);
 };

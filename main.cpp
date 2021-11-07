@@ -57,24 +57,33 @@ int main() {
 				}
 			} while (choice != 4);
 			break;
-		case 3:
+		case 3: {
+			string fileName;
 			do {
 				view.FileRelation();
 				cin >> choice;
 				switch (choice)
 				{
 				case 1:	//데이터 저장
-					fileSystem.OpenFileOut();
-					fileSystem.WriteFile(record);
+					system("cls");
+					cout << "저장할 파일 이름 : ";
+					cin.ignore();
+					getline(cin, fileName);
+					fileSystem.WriteFile(record, fileName);
 					break;
 				case 2:	//데이터 불러오기
-					fileSystem.ReadFile(record);
+					system("cls");
+					cout << "불러올 파일 이름 : ";
+					cin.ignore();
+					getline(cin, fileName);
+					fileSystem.ReadFile(record, fileName);
 					break;
 				default:
 					break;
 				}
 			} while (choice != 3);
 			break;
+		}
 		case 4:
 			return 0;
 		default:

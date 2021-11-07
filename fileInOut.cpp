@@ -3,15 +3,15 @@
 FileInOut::~FileInOut() {
     if (fout.is_open()) {
         fout.close();
-        cout << "fout close" << endl;
+        //cout << "fout close" << endl;
     }
 
     if (fin.is_open()) {
         fin.close();
-        cout << "fin close" << endl;
+        //cout << "fin close" << endl;
     }
 }
-void FileInOut::OpenFileOut() {
+void FileInOut::OpenFileOut(string fileName) {
     //파일이 열리지 않았을 경우에만 코드 실행
     if (!fout.is_open()) {
         //파일 입출력
@@ -22,32 +22,44 @@ void FileInOut::OpenFileOut() {
     }
 }
 //데이터 저장
-void FileInOut::WriteFile(RecordNoteClass& record) {
-    for (int key = 0; key < NKEY; key++) {
-        for (int i = 0; i < record.recordNote[key].size(); i++) {
-            //무슨음이 몇초에 눌렸는지 저장
-            //ex) 2:0.568  => "레" 0.568초에 눌림
-            fout << key << ":" << record.recordNote[key][i] << endl;
+void FileInOut::WriteFile(RecordNoteClass& record, string fileName) {
+    //파일 입출력
+    fout.open(fileName + ".txt");
+    if (fout.fail()) {
+        cout << "데이터를 불러오는데 실패하였습니다.";
+    }
+    else {
+        for (int key = 0; key < NKEY; key++) {
+            for (int i = 0; i < record.recordNote[key].size(); i++) {
+                //무슨음이 몇초에 눌렸는지 저장
+                //ex) 2:0.568  => "레" 0.568초에 눌림
+                fout << key << ":" << record.recordNote[key][i] << endl;
+            }
         }
     }
 }
-void FileInOut::ReadFile(RecordNoteClass& record) {
-    //파일이 열리지 않았을 경우에만 코드 실행
-    if (!fin.is_open()) {
-        fin.open(".//test.txt");
-        if (fin.fail()) {
-            cout << "저장된 데이터가 없습니다." << endl;
-        }
-        else {
-            //txt파일로 저장된 데이터를 담는 변수
-            string loadSaveFile;
+//데이터 불러오기
+void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
+    fin.open(fileName + ".txt");
+    if (fin.fail()) {
+        system("cls");
+        cout << "저장된 데이터가 없습니다." << endl;
+        Sleep(1000);
+    }
+    else {
+        //txt파일로 저장된 데이터를 담는 변수
+        string loadSaveFile;
 
-            record.ResetInputTotalNum();
-            while (getline(fin, loadSaveFile)) {
-                RoadRecordNote(record, loadSaveFile);
-            }
-            record.DivideInputTotalNum();
+        record.ResetInputTotalNum();
+        //저장된 데이터가 끝이 날때까지 반복
+        while (getline(fin, loadSaveFile)) {
+            RoadRecordNote(record, loadSaveFile);
         }
+        record.DivideInputTotalNum();
+
+        system("cls");
+        cout << "Success!!" << endl;
+        Sleep(1000);
     }
 }
 void FileInOut::RoadRecordNote(RecordNoteClass& record, string loadSaveFile) {

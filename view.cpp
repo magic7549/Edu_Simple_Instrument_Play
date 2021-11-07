@@ -21,6 +21,7 @@ View::View() : instrumentText{
 }
 void View::Home() {
 	system("cls");
+    cout << "Start" << endl;
 	cout << "1. Free Play" << endl;
 	cout << "2. Record" << endl;
 	cout << "3. Save / Load" << endl;
