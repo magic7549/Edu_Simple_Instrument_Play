@@ -2,9 +2,11 @@
 #include<Windows.h>	//BYTE 형식 사용하기 위함
 #include<iostream>
 #include<conio.h>
+#include<string>
+using namespace std;
 
 class View {
-	const char* instrumentText[125];
+	string instrumentText[128];
 public:
 	View();
 	void Home();	//첫 화면

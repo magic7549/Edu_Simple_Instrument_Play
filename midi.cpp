@@ -52,7 +52,7 @@ void MidiClass::PlayMidi() {
     view.ViewInstrument(instrument);
     while (true)
     {
-        view.RenderImage(60, 0);
+        view.RenderImage(60, 20);
 
         for (key = 0; key < NKEY; key++) {
             //pianoKey 변수에 할당된 키가 눌렸을 때
