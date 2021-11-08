@@ -29,12 +29,19 @@ void RecordNoteClass::ReplayNote(MidiClass& midi) {
     View view;
     MidiClass mc;
 
+    //초기화 작업
+    midi.instrument = 0;
+    midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
+
+    //벡터 확인을 위한 이터레이터
+    vector<double>::iterator it_instrumentUp = recordNote[13].begin();
+    vector<double>::iterator it_instrumentDown = recordNote[14].begin();
+
     //녹음 재생
     system("cls");
     int inputKeyNum[NKEY] = { 0, };      //재생시 각 음계마다 몇번 째 배열까지 재생했는지 체크
     int finishRecordCheck = ReturnInputTotalNum();  //재생 완료했는지 체크
     start = clock();
-
     while (true) {
         //재생 완료했으면 반복문 종료
         if (finishRecordCheck <= 0) {
@@ -42,7 +49,7 @@ void RecordNoteClass::ReplayNote(MidiClass& midi) {
             break;
         }
 
-        for (key = 0; key < NKEY; key++) {
+        for (key = 0; key < NKEY - 2; key++) {
             //시간 체크
             finish = clock();
             duration = (double)(finish - start) / CLOCKS_PER_SEC;
@@ -69,13 +76,43 @@ void RecordNoteClass::ReplayNote(MidiClass& midi) {
                 }
             }
         }
+        //녹음하면서 바꾼 악기 적용 : 악기 번호 증가
+        if (!recordNote[13].empty() && it_instrumentUp != recordNote[13].end()) {
+            //시간 체크
+            finish = clock();
+            duration = (double)(finish - start) / CLOCKS_PER_SEC;
+
+            //현재 시간이 녹음된 시간보다 같거나 클경우
+            if (duration >= *it_instrumentUp) {
+                midi.instrument++;
+                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
+                it_instrumentUp++;
+            }
+        }
+        //녹음하면서 바꾼 악기 적용 : 악기 번호 감소
+        if (!recordNote[14].empty() && it_instrumentDown != recordNote[14].end()) {
+            //시간 체크
+            finish = clock();
+            duration = (double)(finish - start) / CLOCKS_PER_SEC;
+
+            //현재 시간이 녹음된 시간보다 같거나 클경우
+            if (duration >= *it_instrumentDown) {
+                midi.instrument--;
+                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
+                it_instrumentDown++;
+            }
+        }
     }
 }
 void RecordNoteClass::RecordNote(MidiClass& midi) {
     View view;
 
+    //초기화 작업
     ResetVector();
     ResetInputTotalNum();
+    midi.instrument = 0;
+    midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
+
     start = clock();
 
     BYTE key;
@@ -94,7 +131,7 @@ void RecordNoteClass::RecordNote(MidiClass& midi) {
                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
 
                     //지난 시간을 각 음계마다 따로 저장
-                    recordNote[key + midi.octave - 48].push_back(duration);
+                    recordNote[key].push_back(duration);
 
                     midi.Midi(midi.hDevice, 0x90, 0, (BYTE)(48 + key), 127);
 
@@ -117,12 +154,42 @@ void RecordNoteClass::RecordNote(MidiClass& midi) {
                     duration = (double)(finish - start) / CLOCKS_PER_SEC;
 
                     //지난 시간을 각 음계마다 따로 저장
-                    recordNote[key + midi.octave - 48].push_back(duration);
+                    recordNote[key].push_back(duration);
 
                     midi.Midi(midi.hDevice, 0x80, 0, (BYTE)(48 + key), 127);
                 }
             }
         }
+        //악기 종류 변경
+        //방향키 위쪽
+        if (GetAsyncKeyState(VK_UP)) {
+            // 0 ~ 127
+            if (midi.instrument < 127) {
+                midi.instrument++;
+                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
+                view.ViewInstrument(midi.instrument);
+
+                //악기 종류 저장
+                recordNote[13].push_back(duration);
+
+                Sleep(200);
+            }
+        }
+        //방향키 아래쪽
+        if (GetAsyncKeyState(VK_DOWN)) {
+            // 0 ~ 127
+            if (midi.instrument > 0) {
+                midi.instrument--;
+                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
+                view.ViewInstrument(midi.instrument);
+
+                //악기 종류 저장
+                recordNote[14].push_back(duration);
+
+                Sleep(200);
+            }
+        }
+
         //ESC 입력시 종료
         if (GetAsyncKeyState(VK_ESCAPE))
             break;

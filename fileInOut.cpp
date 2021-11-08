@@ -77,8 +77,12 @@ void FileInOut::RoadRecordNote(RecordNoteClass& record, string loadSaveFile) {
     //몇 초에 입력되었는지 파악
     double time = stod(loadSaveFile.substr(index + 1));
 
-    //총 몇번의 입력이 있었는지 파악
-    record.AddInputTotalNum();
+    //악기 변경이 아닐 때
+    if (key < 13) {
+        //총 몇번의 입력이 있었는지 파악
+        record.AddInputTotalNum();
+    }
+
 
     //불러온 데이터 벡터에 저장
     record.recordNote[key].push_back(time);
