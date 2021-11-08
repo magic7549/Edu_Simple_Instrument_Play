@@ -39,11 +39,11 @@ void RecordNoteClass::RecordNote(MidiClass& midi) {
     view.ViewInstrument(midi.instrument);
 
     //커서 이동 시키기
-    view.Gotoxy(0, 20);
+    view.Gotoxy(0, 30);
 
     while (true)
     {
-        view.RenderImage(60, 20);
+        view.RenderImage(0, 0);
         for (key = 0; key < NKEY; key++) {
             //pianoKey 변수에 할당된 키가 눌렸을 때
             //0x8000을 같이 체크 안 할 경우 이전에 키가 눌렸어도 조건문 실행
