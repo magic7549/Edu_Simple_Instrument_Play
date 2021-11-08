@@ -21,6 +21,8 @@ View::View() : instrumentText{
 }
 void View::Home() {
 	system("cls");
+    system("mode con: cols=87 lines=50");  //창 크기 변경
+
     cout << "Start" << endl;
 	cout << "1. Free Play" << endl;
 	cout << "2. Record" << endl;
@@ -30,9 +32,9 @@ void View::Home() {
 }
 void View::Free_Play() {
 	system("cls");
-    cout << "↑, ↓ : 악기 변경" << endl;
+
 	//커서 이동 시키기
-    Gotoxy(0, 20);
+    Gotoxy(0, 30);
 }
 void View::Record_Select() {
     system("cls");
@@ -53,7 +55,6 @@ void View::Record() {
     cout << "시작!" << endl;
     Sleep(300);
     system("cls");
-    cout << "↑, ↓ : 악기 변경         Finish : ESC" << endl;
 }
 bool View::Reset() {
     char choice;
@@ -140,7 +141,7 @@ void View::RenderImage(int x, int y) {
 
     hOldBitmap = (HBITMAP)SelectObject(hMemDC, hImage);
     //비트맵 이미지 사이즈 및 좌표 설정
-    BitBlt(hDC, x, y, 600, 300, hMemDC, 0, 0, SRCCOPY);
+    BitBlt(hDC, x, y, 692, 430, hMemDC, 0, 0, SRCCOPY);
 
     SelectObject(hMemDC, hOldBitmap);
     DeleteObject(hImage);
@@ -178,9 +179,9 @@ void View::ViewInstrument(int instrument) {
     //악기 종류 배열 생성하기
     int x, y;
     NowCursorPosition(x, y);
-    Gotoxy(0, 18);
+    Gotoxy(0, 28);
     cout << "                                                 ";    //이전 문자열 지우기 위함
-    Gotoxy(0, 18);
+    Gotoxy(0, 28);
     cout << "Instrument : " << instrumentText[instrument];
     Gotoxy(x, y);
 }
