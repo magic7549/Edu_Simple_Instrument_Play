@@ -53,7 +53,7 @@ void View::Record() {
     cout << "시작!" << endl;
     Sleep(300);
     system("cls");
-    cout << "Finish : ESC" << endl;
+    cout << "↑, ↓ : 악기 변경         Finish : ESC" << endl;
 }
 bool View::Reset() {
     char choice;
