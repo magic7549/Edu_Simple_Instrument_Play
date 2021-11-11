@@ -28,7 +28,7 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName) {
     //파일 입출력
     fout.open(fileName + ".txt");
 
-    if (fout.fail() && outFileList.fail()) {
+    if (fout.fail() || outFileList.fail()) {
         cout << "데이터를 저장하는데 실패하였습니다.";
     }
     else {
@@ -73,6 +73,8 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
         system("cls");
         cout << "Success!!" << endl;
         Sleep(1000);
+
+        fin.close();
     }
 }
 void FileInOut::RoadRecordNote(RecordNoteClass& record, string loadSaveFile) {
@@ -108,6 +110,7 @@ void FileInOut::PrintFileList() {
             getline(inFileList, fileName);
             cout << fileName << endl;
         }
+        inFileList.close();
     }
 }
 void FileInOut::DataDelete(string fileName) {
@@ -153,11 +156,15 @@ void FileInOut::DataDelete(string fileName) {
 
         //세이브 리스트를 열어서 끝이 아니거나 enter만 입력된 줄이 아닐 경우
         outFileList.open("save_list.txt");
-        while (it != tempList.end() && *it != "\0") {
-            outFileList << *it << endl;
-            it++;
+        if (!outFileList.fail()) {
+            while (it != tempList.end()) {
+                if (*it != "\0") {
+                    outFileList << *it << endl;
+                }
+                it++;
+            }
+            outFileList.close();
         }
-        outFileList.close();
     }
     else {
         system("cls");
