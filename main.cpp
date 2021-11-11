@@ -17,6 +17,12 @@ int main() {
 	midi.MidiAllo(midi.hDevice);
 
 	view.RemoveScrollbar();
+	view.ConsoleSetting();
+
+	DWORD prevMode = 0;
+	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+	GetConsoleMode(handle, &prevMode);
+	SetConsoleMode(handle, prevMode & ~ENABLE_QUICK_EDIT_MODE | ENABLE_MOUSE_INPUT);
 
 	int choice;
 	while (true)
@@ -73,15 +79,23 @@ int main() {
 					break;
 				case 2:	//데이터 불러오기
 					system("cls");
+					fileSystem.PrintFileList();
 					cout << "불러올 파일 이름 : ";
 					cin.ignore();
 					getline(cin, fileName);
 					fileSystem.ReadFile(record, fileName);
 					break;
+				case 3:	//데이터 삭제
+					system("cls");
+					fileSystem.PrintFileList();
+					cout << "삭제할 파일 이름 : ";
+					cin.ignore();
+					getline(cin, fileName);
+					fileSystem.DataDelete(fileName);
 				default:
 					break;
 				}
-			} while (choice != 3);
+			} while (choice != 4);
 			break;
 		}
 		case 4:

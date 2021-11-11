@@ -19,9 +19,13 @@ View::View() : instrumentText{
 } {
     //생성자 내부 코드 작성란
 }
+void View::ConsoleSetting() {
+    system("mode con: cols=87 lines=50");  //창 크기 변경
+    system("color 00");     //배경 색 설정
+    system("title Composition");  //콘솔창 타이틀 설정
+}
 void View::Home() {
 	system("cls");
-    system("mode con: cols=87 lines=50");  //창 크기 변경
 
     cout << "Start" << endl;
 	cout << "1. Free Play" << endl;
@@ -79,7 +83,8 @@ void View::FileRelation() {
     system("cls");
     cout << "1. Data Save" << endl;
     cout << "2. Data Load" << endl;
-    cout << "3. <--" << endl;
+    cout << "3. Data Delete" << endl;
+    cout << "4. <--" << endl;
     cout << "input number : ";
 }
 void View::ShowDoReMi(BYTE key) {

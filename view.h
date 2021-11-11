@@ -9,6 +9,7 @@ class View {
 	string instrumentText[128];
 public:
 	View();
+	void ConsoleSetting();	//콘솔 창 설정
 	void Home();	//첫 화면
 	void Free_Play();	//자유 연주
 	void Record_Select();	//녹음 선택 메뉴
