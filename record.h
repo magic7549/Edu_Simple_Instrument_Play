@@ -7,6 +7,9 @@
 using namespace std;
 
 class RecordNoteClass {
+    //악기 번호 저장
+    int instrument;
+
     //녹음 시작 후 몇번 입력이 있었는지 체크
     int inputTotalNum;
 
@@ -25,6 +28,10 @@ public:
     int ReturnInputTotalNum();
     void ResetVector();
 
-    void RecordNote(MidiClass& midi);
-    void ReplayNote(MidiClass& midi);
+    void RecordNote(MidiClass& midi, int channel);
+    void ReplayNote(MidiClass midi, int channel);
+
+    //악기 설정 함수
+    int Return_Instrument();
+    void Set_Instrument(int inst);
 };

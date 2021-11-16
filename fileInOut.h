@@ -10,7 +10,7 @@ class FileInOut {
     ofstream outFileList;
 public:
     ~FileInOut();
-    void WriteFile(RecordNoteClass& record, string fileName);
+    void WriteFile(RecordNoteClass& record, string fileName, int isBase);
     void ReadFile(RecordNoteClass& record, string fileName);
     void RoadRecordNote(RecordNoteClass& record, string loadSaveFile);
     void PrintFileList();

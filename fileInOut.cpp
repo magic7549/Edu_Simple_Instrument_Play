@@ -15,7 +15,7 @@ FileInOut::~FileInOut() {
     }
 }
 //데이터 저장
-void FileInOut::WriteFile(RecordNoteClass& record, string fileName) {
+void FileInOut::WriteFile(RecordNoteClass& record, string fileName, int isBase) {
     //파일이 존재하는지 체크하기 위해 주소값 설정
     string address = fileName + ".txt";
     const char* c = address.c_str();
@@ -32,6 +32,9 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName) {
         cout << "데이터를 저장하는데 실패하였습니다.";
     }
     else {
+        //악기 종류 저장
+        fout << record.Return_Instrument() << endl;
+
         for (int key = 0; key < NKEY; key++) {
             for (int i = 0; i < record.recordNote[key].size(); i++) {
                 //무슨음이 몇초에 눌렸는지 저장
@@ -39,7 +42,11 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName) {
                 fout << key << ":" << record.recordNote[key][i] << endl;
             }
         }
-        outFileList << fileName << endl;
+        //여러 개의 트랙이 저장되더라도 세이브 리스트에는
+        //하나의 파일 이름만 저장
+        if (isBase >= 0) {
+            outFileList << fileName << endl;
+        }
         fout.close();
         outFileList.close();
     }
@@ -64,6 +71,11 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
 
         record.ResetVector();
         record.ResetInputTotalNum();
+
+        //악기 종류 불러오기
+        getline(fin, loadSaveFile);
+        record.Set_Instrument(stoi(loadSaveFile));
+
         //저장된 데이터가 끝이 날때까지 반복
         while (getline(fin, loadSaveFile)) {
             RoadRecordNote(record, loadSaveFile);
@@ -72,7 +84,7 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
 
         system("cls");
         cout << "Success!!" << endl;
-        Sleep(1000);
+        Sleep(500);
 
         fin.close();
     }
@@ -165,6 +177,11 @@ void FileInOut::DataDelete(string fileName) {
             }
             outFileList.close();
         }
+
+        //나머지 트랙 파일도 삭제
+        address = fileName + "_1.txt";
+        c = address.c_str();
+        remove(c);
     }
     else {
         system("cls");

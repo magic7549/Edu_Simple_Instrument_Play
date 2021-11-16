@@ -24,14 +24,23 @@ void RecordNoteClass::ResetVector() {
         }
     }
 }
-void RecordNoteClass::RecordNote(MidiClass& midi) {
+int RecordNoteClass::Return_Instrument() {
+    return instrument;
+}
+void RecordNoteClass::Set_Instrument(int inst) {
+    instrument = inst;
+}
+
+void RecordNoteClass::RecordNote(MidiClass& midi, int channel) {
     View view;
 
     //초기화 작업
     ResetVector();
     ResetInputTotalNum();
-    midi.instrument = 0;
-    midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
+    instrument = midi.instrument;
+    
+    //midi.instrument = 0;
+    //midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
 
     start = clock();
 
@@ -59,7 +68,7 @@ void RecordNoteClass::RecordNote(MidiClass& midi) {
                     //지난 시간을 각 음계마다 따로 저장
                     recordNote[key].push_back(duration);
 
-                    midi.Midi(midi.hDevice, 0x90, 0, (BYTE)(48 + key), 127);
+                    midi.Midi(midi.hDevice, 0x90, channel, (BYTE)(48 + key), 127);
 
                     //총 몇번의 키 입력이 있었는지 체크하여, 후에 재생 컨트롤
                     AddInputTotalNum();
@@ -82,37 +91,8 @@ void RecordNoteClass::RecordNote(MidiClass& midi) {
                     //지난 시간을 각 음계마다 따로 저장
                     recordNote[key].push_back(duration);
 
-                    midi.Midi(midi.hDevice, 0x80, 0, (BYTE)(48 + key), 127);
+                    midi.Midi(midi.hDevice, 0x80, channel, (BYTE)(48 + key), 127);
                 }
-            }
-        }
-        //악기 종류 변경
-        //방향키 위쪽
-        if (GetAsyncKeyState(VK_UP)) {
-            // 0 ~ 127
-            if (midi.instrument < 127) {
-                midi.instrument++;
-                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
-                view.ViewInstrument(midi.instrument);
-
-                //악기 종류 저장
-                recordNote[13].push_back(duration);
-
-                Sleep(200);
-            }
-        }
-        //방향키 아래쪽
-        if (GetAsyncKeyState(VK_DOWN)) {
-            // 0 ~ 127
-            if (midi.instrument > 0) {
-                midi.instrument--;
-                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
-                view.ViewInstrument(midi.instrument);
-
-                //악기 종류 저장
-                recordNote[14].push_back(duration);
-
-                Sleep(200);
             }
         }
 
@@ -121,18 +101,14 @@ void RecordNoteClass::RecordNote(MidiClass& midi) {
             break;
     }
 }
-void RecordNoteClass::ReplayNote(MidiClass& midi) {
+void RecordNoteClass::ReplayNote(MidiClass midi, int channel) {
     BYTE key;
     View view;
     MidiClass mc;
 
     //초기화 작업
-    midi.instrument = 0;
-    midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
-
-    //벡터 확인을 위한 이터레이터
-    vector<double>::iterator it_instrumentUp = recordNote[13].begin();
-    vector<double>::iterator it_instrumentDown = recordNote[14].begin();
+    //midi.instrument = 0;
+    //midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
 
     //녹음 재생
     system("cls");
@@ -146,7 +122,7 @@ void RecordNoteClass::ReplayNote(MidiClass& midi) {
             break;
         }
 
-        for (key = 0; key < NKEY - 2; key++) {
+        for (key = 0; key < NKEY; key++) {
             //시간 체크
             finish = clock();
             duration = (double)(finish - start) / CLOCKS_PER_SEC;
@@ -161,42 +137,16 @@ void RecordNoteClass::ReplayNote(MidiClass& midi) {
                 //inputKeyNum[key]가 짝수면
                 //각 음계 재생
                 if ((inputKeyNum[key] % 2) == 0) {
-                    midi.Midi(midi.hDevice, 0x90, 0, (BYTE)(48 + key), 127);
+                    midi.Midi(midi.hDevice, 0x90, channel, (BYTE)(48 + key), 127);
                     inputKeyNum[key]++;
                     view.ShowDoReMi(key);
                 }
                 //각 음계 재생 멈춤
                 else {
-                    midi.Midi(midi.hDevice, 0x80, 0, (BYTE)(48 + key), 127);
+                    midi.Midi(midi.hDevice, 0x80, channel, (BYTE)(48 + key), 127);
                     inputKeyNum[key]++;
                     finishRecordCheck--;
                 }
-            }
-        }
-        //녹음하면서 바꾼 악기 적용 : 악기 번호 증가
-        if (!recordNote[13].empty() && it_instrumentUp != recordNote[13].end()) {
-            //시간 체크
-            finish = clock();
-            duration = (double)(finish - start) / CLOCKS_PER_SEC;
-
-            //현재 시간이 녹음된 시간보다 같거나 클경우
-            if (duration >= *it_instrumentUp) {
-                midi.instrument++;
-                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
-                it_instrumentUp++;
-            }
-        }
-        //녹음하면서 바꾼 악기 적용 : 악기 번호 감소
-        if (!recordNote[14].empty() && it_instrumentDown != recordNote[14].end()) {
-            //시간 체크
-            finish = clock();
-            duration = (double)(finish - start) / CLOCKS_PER_SEC;
-
-            //현재 시간이 녹음된 시간보다 같거나 클경우
-            if (duration >= *it_instrumentDown) {
-                midi.instrument--;
-                midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0);
-                it_instrumentDown++;
             }
         }
     }
