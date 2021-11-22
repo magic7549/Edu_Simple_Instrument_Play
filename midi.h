@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<thread>
 using namespace std;
 
 #include "view.h"
@@ -9,9 +10,18 @@ using namespace std;
 #pragma comment(lib, "winmm.lib")
 
 //피아노 건반으로 할당할 키 개수
+//도 도# 레 ... ~ 시 도
 #define NKEY 13
 
 class MidiClass {
+private:
+    //bpm
+    int bpm;
+    //메트로놈 켜져있는지
+    bool isMetronome;
+    //메트로놈 핵심 함수
+    void Metronome();
+
 public:
     //키보드 값을 BYTE형식으로 저장
     BYTE pianoKey[NKEY];
@@ -30,4 +40,11 @@ public:
     //미디 할당
     void MidiAllo(HMIDIOUT& hDevice);
     void PlayMidi();
+    //메트로놈 OnOff 함수
+    void Metronome_OnOff();
+
+    //BPM 설정
+    void SetBPM(int inputBPM);
+    //BPM 반환
+    int ReturnBPM();
 };

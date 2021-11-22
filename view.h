@@ -7,11 +7,13 @@ using namespace std;
 
 class View {
 	string instrumentText[128];
+	int x, y;	//커서 좌표
 public:
 	View();
 	void ConsoleSetting();	//콘솔 창 설정
 	void Home();	//첫 화면
-	void Free_Play();	//자유 연주
+	void DisplayInput(int key, bool isPush);
+	void Piano();	//피아노 그림
 	void Record_Select();	//녹음 선택 메뉴
 	void Record();	//녹음 화면
 	bool Reset();	//리셋 화면
@@ -22,4 +24,5 @@ public:
 	void NowCursorPosition(int& x, int& y);	//현재 커서 위치
 	void RemoveScrollbar();		//스크롤바 제거
 	void ViewInstrument(int instrument);	//현재 악기 종류 표시
+	void ViewMetronomeBPM(int bpm);	//메트로놈 BPM 표시
 };

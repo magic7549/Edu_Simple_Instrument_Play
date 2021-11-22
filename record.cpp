@@ -31,7 +31,7 @@ void RecordNoteClass::Set_Instrument(int inst) {
     instrument = inst;
 }
 
-void RecordNoteClass::RecordNote(MidiClass& midi, int channel) {
+void RecordNoteClass::RecordNote(MidiClass midi, int channel) {
     View view;
 
     //초기화 작업
@@ -39,20 +39,12 @@ void RecordNoteClass::RecordNote(MidiClass& midi, int channel) {
     ResetInputTotalNum();
     instrument = midi.instrument;
     
-    //midi.instrument = 0;
-    //midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
-
     start = clock();
 
     BYTE key;
-    view.ViewInstrument(midi.instrument);
-
-    //커서 이동 시키기
-    view.Gotoxy(0, 30);
 
     while (true)
     {
-        view.RenderImage(0, 0);
         for (key = 0; key < NKEY; key++) {
             //pianoKey 변수에 할당된 키가 눌렸을 때
             //0x8000을 같이 체크 안 할 경우 이전에 키가 눌렸어도 조건문 실행
@@ -73,6 +65,8 @@ void RecordNoteClass::RecordNote(MidiClass& midi, int channel) {
                     //총 몇번의 키 입력이 있었는지 체크하여, 후에 재생 컨트롤
                     AddInputTotalNum();
 
+                    //음계 화면 출력
+                    view.DisplayInput(key, true);
                     view.ShowDoReMi(key);
                 }
             }
@@ -92,6 +86,9 @@ void RecordNoteClass::RecordNote(MidiClass& midi, int channel) {
                     recordNote[key].push_back(duration);
 
                     midi.Midi(midi.hDevice, 0x80, channel, (BYTE)(48 + key), 127);
+
+                    //입력 표시 지움
+                    view.DisplayInput(key, false);
                 }
             }
         }
@@ -111,7 +108,6 @@ void RecordNoteClass::ReplayNote(MidiClass midi, int channel) {
     //midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
 
     //녹음 재생
-    system("cls");
     int inputKeyNum[NKEY] = { 0, };      //재생시 각 음계마다 몇번 째 배열까지 재생했는지 체크
     int finishRecordCheck = ReturnInputTotalNum();  //재생 완료했는지 체크
     start = clock();

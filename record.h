@@ -28,7 +28,7 @@ public:
     int ReturnInputTotalNum();
     void ResetVector();
 
-    void RecordNote(MidiClass& midi, int channel);
+    void RecordNote(MidiClass midi, int channel);
     void ReplayNote(MidiClass midi, int channel);
 
     //악기 설정 함수

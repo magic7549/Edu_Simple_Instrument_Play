@@ -36,7 +36,7 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName, int isBase) 
         fout << record.Return_Instrument() << endl;
 
         for (int key = 0; key < NKEY; key++) {
-            for (int i = 0; i < record.recordNote[key].size(); i++) {
+            for (int i = 0; i < (int)record.recordNote[key].size(); i++) {
                 //무슨음이 몇초에 눌렸는지 저장
                 //ex) 2:0.568  => "레" 0.568초에 눌림
                 fout << key << ":" << record.recordNote[key][i] << endl;
@@ -97,12 +97,8 @@ void FileInOut::RoadRecordNote(RecordNoteClass& record, string loadSaveFile) {
     //몇 초에 입력되었는지 파악
     double time = stod(loadSaveFile.substr(index + 1));
 
-    //악기 변경이 아닐 때
-    if (key < 13) {
-        //총 몇번의 입력이 있었는지 파악
-        record.AddInputTotalNum();
-    }
-
+    //총 몇번의 입력이 있었는지 파악
+    record.AddInputTotalNum();
 
     //불러온 데이터 벡터에 저장
     record.recordNote[key].push_back(time);

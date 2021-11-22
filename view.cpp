@@ -18,11 +18,83 @@ View::View() : instrumentText{
     "멜로딕 톰","신스 드럼","역방향 심벌즈","기타 프렛 노이즈","브레스 노이즈","해변","새소리","전화 벨","헬리콥터","박수","총소리"
 } {
     //생성자 내부 코드 작성란
+    x = 0, y = 0;
 }
 void View::ConsoleSetting() {
     system("mode con: cols=87 lines=50");  //창 크기 변경
     system("color 00");     //배경 색 설정
     system("title Composition");  //콘솔창 타이틀 설정
+}
+void View::Piano() {
+    system("cls");
+    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │       " << endl;
+    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │       " << endl;
+    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │       " << endl;
+    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │       " << endl;
+    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │       " << endl;
+    cout << "　　│　│　│  │  │  │  │  │  │  │  │  │ │       " << endl;
+    cout << "　　│  └ㅡ┘  └ㅡ┘  │  └ㅡ┘  └ㅡ┘  └ㅡ┘ │       " << endl;
+    cout << "　　│    │　　│　　│    │　  │    │    │            " << endl;
+    cout << "　　│    │　　│　　│    │　  │    │    │            " << endl;
+    cout << "　　│    │　　│　　│    │　  │    │    │            " << endl;
+    cout << "　　│　　│　　│　　│    │　  │    │    │            " << endl;
+    cout << "　　└ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┘            " << endl;
+    cout << endl << endl;
+}
+void View::DisplayInput(int key, bool isPush) {
+    NowCursorPosition(x, y);
+    switch (key)
+    {
+    case 0: //도
+        Gotoxy(7, 10);
+        break;
+    case 1: //도#
+        Gotoxy(8, 5);
+        break;
+    case 2: //레
+        Gotoxy(12, 10);
+        break;
+    case 3: //레#
+        Gotoxy(14, 5);
+        break;
+    case 4: //미
+        Gotoxy(17, 10);
+        break;
+    case 5: //파
+        Gotoxy(22, 10);
+        break;
+    case 6: //파#
+        Gotoxy(23, 5);
+        break;
+    case 7: //솔
+        Gotoxy(27, 10);
+        break;
+    case 8: //솔#
+        Gotoxy(29, 5);
+        break;
+    case 9: //라
+        Gotoxy(32, 10);
+        break;
+    case 10: //라#
+        Gotoxy(35, 5);
+        break;
+    case 11: //시
+        Gotoxy(37, 10);
+        break;
+    case 12: //도
+        Gotoxy(44, 10);
+        break;
+    default:
+        break;
+    }
+    if (isPush) {
+        cout << "★";
+    }
+    else {
+        cout << "　";
+    }
+    Gotoxy(0, 0);  //없을 경우 피아노 일부분 지워짐
+    Gotoxy(x, y);
 }
 void View::Home() {
 	system("cls");
@@ -33,12 +105,6 @@ void View::Home() {
 	cout << "3. Save / Load" << endl;
 	cout << "4. Exit" << endl;
     cout << "input number : ";
-}
-void View::Free_Play() {
-	system("cls");
-
-	//커서 이동 시키기
-    Gotoxy(0, 30);
 }
 void View::Record_Select() {
     system("cls");
@@ -182,11 +248,20 @@ void View::RemoveScrollbar() {
 }
 void View::ViewInstrument(int instrument) {
     //악기 종류 배열 생성하기
-    int x, y;
+    cout << endl;
     NowCursorPosition(x, y);
-    Gotoxy(0, 28);
+    Gotoxy(0, 13);
     cout << "                                                 ";    //이전 문자열 지우기 위함
-    Gotoxy(0, 28);
+    Gotoxy(0, 13);
     cout << "Instrument : " << instrumentText[instrument];
+    Gotoxy(x, y);
+}
+void View::ViewMetronomeBPM(int bpm) {
+    cout << endl;
+    NowCursorPosition(x, y);
+    Gotoxy(0, 14);
+    cout << "                                                 ";    //이전 문자열 지우기 위함
+    Gotoxy(0, 14);
+    cout << "메트로놈 BPM : " << bpm;
     Gotoxy(x, y);
 }
