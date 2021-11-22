@@ -39,7 +39,7 @@ void View::Piano() {
     cout << "　　│    │　　│　　│    │　  │    │    │            " << endl;
     cout << "　　│　　│　　│　　│    │　  │    │    │            " << endl;
     cout << "　　└ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┘            " << endl;
-    cout << endl << endl;
+    cout << endl << endl << endl;
 }
 void View::DisplayInput(int key, bool isPush) {
     NowCursorPosition(x, y);
@@ -248,7 +248,6 @@ void View::RemoveScrollbar() {
 }
 void View::ViewInstrument(int instrument) {
     //악기 종류 배열 생성하기
-    cout << endl;
     NowCursorPosition(x, y);
     Gotoxy(0, 13);
     cout << "                                                 ";    //이전 문자열 지우기 위함
@@ -257,7 +256,6 @@ void View::ViewInstrument(int instrument) {
     Gotoxy(x, y);
 }
 void View::ViewMetronomeBPM(int bpm) {
-    cout << endl;
     NowCursorPosition(x, y);
     Gotoxy(0, 14);
     cout << "                                                 ";    //이전 문자열 지우기 위함
