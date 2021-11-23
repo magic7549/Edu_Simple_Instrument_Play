@@ -10,8 +10,8 @@ using namespace std;
 #pragma comment(lib, "winmm.lib")
 
 //피아노 건반으로 할당할 키 개수
-//도 도# 레 ... ~ 시 도
-#define NKEY 13
+//도 도# 레 ... ~ 시 도 도# 레 레# 미
+#define NKEY 17
 
 class MidiClass {
 private:

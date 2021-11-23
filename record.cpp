@@ -103,10 +103,6 @@ void RecordNoteClass::ReplayNote(MidiClass midi, int channel) {
     View view;
     MidiClass mc;
 
-    //초기화 작업
-    //midi.instrument = 0;
-    //midi.Midi(midi.hDevice, 0xC0, 0, midi.instrument, 0); //악기 피아노로 설정
-
     //녹음 재생
     int inputKeyNum[NKEY] = { 0, };      //재생시 각 음계마다 몇번 째 배열까지 재생했는지 체크
     int finishRecordCheck = ReturnInputTotalNum();  //재생 완료했는지 체크

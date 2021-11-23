@@ -16,6 +16,7 @@ int main() {
 
 	midi.MidiAllo(midi.hDevice);
 
+	//콘솔 창 설정
 	view.RemoveScrollbar();
 	view.ConsoleSetting();
 
