@@ -39,74 +39,74 @@ void View::RemoveScrollbar() {
 }
 void View::Piano() {
     system("cls");
-    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
-    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
-    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
-    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
-    cout << "　　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
-    cout << "　　│　│　│  │  │  │  │  │  │  │  │  │ │　│　│  │  │  │       " << endl;
-    cout << "　　│  └ㅡ┘  └ㅡ┘  │  └ㅡ┘  └ㅡ┘  └ㅡ┘ │  └ㅡ┘  └ㅡ┘  │       " << endl;
-    cout << "　　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
-    cout << "　　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
-    cout << "　　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
-    cout << "　　│　　│　　│　　│    │　  │    │    │　　│　　│　　│            " << endl;
-    cout << "　　└ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┘            " << endl;
+    cout << "　            　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
+    cout << "　            　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
+    cout << "　            　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
+    cout << "　            　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
+    cout << "　            　│  │  │  │  │  │  │  │  │  │  │  │ │  │  │  │  │  │       " << endl;
+    cout << "　            　│　│　│  │  │  │  │  │  │  │  │  │ │　│　│  │  │  │       " << endl;
+    cout << "　            　│  └ㅡ┘  └ㅡ┘  │  └ㅡ┘  └ㅡ┘  └ㅡ┘ │  └ㅡ┘  └ㅡ┘  │       " << endl;
+    cout << "　            　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
+    cout << "　            　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
+    cout << "　            　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
+    cout << "　            　│　　│　　│　　│    │　  │    │    │　　│　　│　　│            " << endl;
+    cout << "                └ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┘            " << endl;
+    cout << "필요시 Q를 눌러 메트로놈을 실행하세요. " << endl;
     cout << endl << endl << endl;
 }
 void View::DisplayInput(int key, bool isPush) {
     NowCursorPosition(x, y);
-    switch (key)
-    {
+    switch (key) {
     case 0: //도
-        Gotoxy(7, 10);
+        Gotoxy(19, 10);
         break;
     case 1: //도#
-        Gotoxy(8, 5);
+        Gotoxy(20, 5);
         break;
     case 2: //레
-        Gotoxy(12, 10);
+        Gotoxy(24, 10);
         break;
     case 3: //레#
-        Gotoxy(14, 5);
+        Gotoxy(26, 5);
         break;
     case 4: //미
-        Gotoxy(17, 10);
+        Gotoxy(29, 10);
         break;
     case 5: //파
-        Gotoxy(22, 10);
+        Gotoxy(34, 10);
         break;
     case 6: //파#
-        Gotoxy(23, 5);
-        break;
-    case 7: //솔
-        Gotoxy(27, 10);
-        break;
-    case 8: //솔#
-        Gotoxy(29, 5);
-        break;
-    case 9: //라
-        Gotoxy(32, 10);
-        break;
-    case 10: //라#
         Gotoxy(35, 5);
         break;
+    case 7: //솔
+        Gotoxy(39, 10);
+        break;
+    case 8: //솔#
+        Gotoxy(41, 5);
+        break;
+    case 9: //라
+        Gotoxy(44, 10);
+        break;
+    case 10: //라#
+        Gotoxy(47, 5);
+        break;
     case 11: //시
-        Gotoxy(37, 10);
+        Gotoxy(49, 10);
         break;
     case 12: //도
-        Gotoxy(42, 10);
+        Gotoxy(54, 10);
         break;
     case 13: //도#
-        Gotoxy(43, 5);
+        Gotoxy(55, 5);
         break;
     case 14: //레
-        Gotoxy(47, 10);
+        Gotoxy(59, 10);
         break;
     case 15: //레#
-        Gotoxy(49, 5);
+        Gotoxy(61, 5);
         break;
     case 16: //미
-        Gotoxy(52, 10);
+        Gotoxy(64, 10);
         break;
     default:
         break;
@@ -209,20 +209,20 @@ void View::Record() {
     system("cls");
 }
 bool View::Reset() {
-    char choice;
-    while (true)
-    {
+    string choice;
+    while (true) {
         system("cls");
-        cout << "데이터를 초기화 하겠습니까?" << endl;
-        cout << "(Y / N)" << endl;
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+        cout << "                               데이터를 초기화 하겠습니까?" << endl;
+        cout << "                                       (Y / N)  :  ";
 
-        cin >> choice;
-        if (choice == 'y' || choice == 'Y')
+        getline(cin, choice);
+        if (choice == "y" || choice == "Y")
             return true;
-        else if (choice == 'n' || choice == 'N')
+        else if (choice == "n" || choice == "N")
             return false;
         else {
-            cout << "입력이 잘못되었습니다." << endl;
+            cout << endl << "                                  입력이 잘못되었습니다." << endl;
             Sleep(1000);
         }
     }

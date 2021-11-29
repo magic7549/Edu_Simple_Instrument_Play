@@ -49,6 +49,11 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName, int isBase) 
         }
         fout.close();
         outFileList.close();
+
+        system("cls");
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+        cout << "                                저장을 완료하였습니다." << endl;
+        Sleep(1000);
     }
 }
 //데이터 불러오기
@@ -62,7 +67,8 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
 
     if (fin.fail()) {
         system("cls");
-        cout << "저장된 데이터가 없습니다." << endl;
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+        cout << "                                저장된 데이터가 없습니다." << endl;
         Sleep(1000);
     }
     else {
@@ -83,7 +89,8 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
         record.DivideInputTotalNum();
 
         system("cls");
-        cout << "Success!!" << endl;
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+        cout << "                         데이터를 불러오는데 성공하였습니다." << endl;
         Sleep(500);
 
         fin.close();
@@ -116,7 +123,7 @@ void FileInOut::PrintFileList() {
         string fileName;
         while (!inFileList.eof()) {
             getline(inFileList, fileName);
-            cout << fileName << endl;
+            cout << "                               " << fileName << endl;
         }
         inFileList.close();
     }
@@ -131,10 +138,14 @@ void FileInOut::DataDelete(string fileName) {
         //파일 삭제
         int result = remove(c);
         if (result == 0) {
-            cout << "파일 삭제 성공" << endl;
+            system("cls");
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+            cout << "                                    파일 삭제 성공" << endl;
+            Sleep(1000);
         }
         else if (result == -1) {
-            cout << "파일 삭제 실패" << endl;
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+            cout << "                                    파일 삭제 실패" << endl;
         }
 
         //이전에 불러오기를 실행해서 이미 파일이 열려있는
@@ -181,7 +192,8 @@ void FileInOut::DataDelete(string fileName) {
     }
     else {
         system("cls");
-        cout << "존재하지 않는 데이터입니다." << endl;
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+        cout << "                                존재하지 않는 데이터입니다." << endl;
         Sleep(1000);
     }
 }

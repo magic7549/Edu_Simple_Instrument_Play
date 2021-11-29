@@ -27,15 +27,15 @@ int main() {
 	/// SetConsoleMode(handle, prevMode & ~ENABLE_QUICK_EDIT_MODE | ENABLE_MOUSE_INPUT);
 	/// </마우스 이벤트>
 
-	int choice;
-	while (true)
-	{
-		cin.clear();
-		view.Home();
-		cin >> choice;
+	//system("explorer help.html");
 
-		switch (choice)
-		{
+	int choice;
+	while (true) {
+		view.Home();
+
+		cin >> choice;
+		cin.ignore();	//cin 으로 인해 버퍼에 남아있는 '\n'을 지우기 위함
+		switch (choice)	{
 		case 1:	//자유 연주
 			view.Piano();
 			view.ViewInstrument(midi.instrument);
@@ -46,17 +46,19 @@ int main() {
 			do {
 				view.Record_Select();
 				cin >> choice;
-				switch (choice)
-				{
+				cin.ignore();
+				switch (choice) {
 				case 1: {
 					//녹음 트랙 선택
 					do {
 						system("cls");
-						cout << "녹음할 트랙을 선택해주세요(1 ~ 2) : ";
+						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
+						cout << "                        녹음할 트랙을 선택해주세요(1 ~ 2) : ";
 						cin >> choice;
+						cin.ignore();
 
 						if (choice <= 0 || choice > 2) {
-							cout << "1 ~ 2번 트랙을 선택해주세요";
+							cout << endl << "                        1 ~ 2번 트랙을 선택해주세요";
 							Sleep(1000);
 						}
 					} while (choice <= 0 || choice > 2);
@@ -64,13 +66,16 @@ int main() {
 					//악기 선택
 					do {
 						system("cls");
-						cout << "악기를 선택해주세요(1 ~ 128) : ";
+						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
+						cout << "                        악기를 선택해주세요(1 ~ 128) : ";
 						cin >> midi.instrument;
+						cin.ignore();
+
 						if (midi.instrument >= 1 && midi.instrument <= 128) {
 							midi.Midi(midi.hDevice, 0xC0, choice - 1, midi.instrument - 1, 0);
 						}
 						else {
-							cout << "1 ~ 128 중 선택해주세요";
+							cout << endl << "                        1 ~ 128 중 선택해주세요";
 							Sleep(1000);
 						}
 					} while (midi.instrument <= 0 || midi.instrument > 128);
@@ -79,8 +84,11 @@ int main() {
 					int setBPM;
 					do {
 						system("cls");
-						cout << "메트로놈 BPM을 설정해주세요(40BPM ~ 240BPM 설정 가능 , 0 : 비활성화) : ";
+						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
+						cout << "      메트로놈 BPM을 설정해주세요(40BPM ~ 240BPM 설정 가능 , 0 : 비활성화) : ";
 						cin >> setBPM;
+						cin.ignore();
+
 						if (setBPM >= 40 && setBPM <= 240) {
 							midi.SetBPM(setBPM);
 							midi.Metronome_OnOff();
@@ -89,7 +97,7 @@ int main() {
 							break;
 						}
 						else {
-							cout << "40BPM ~ 240BPM 설정 가능" << endl << "0 : 비활성화";
+							cout << endl << "      40BPM ~ 240BPM 설정 가능" << endl << "      0 : 비활성화";
 							Sleep(1000);
 						}
 					} while (setBPM < 40 || setBPM > 240);
@@ -123,7 +131,8 @@ int main() {
 							record[i].ResetInputTotalNum();
 						}
 						system("cls");
-						cout << "데이터를 초기화하였습니다." << endl;
+						cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+						cout << "                               데이터를 초기화하였습니다." << endl;
 						Sleep(1000);
 					}
 					break;
@@ -137,23 +146,27 @@ int main() {
 			do {
 				view.FileRelation();
 				cin >> choice;
-				switch (choice)
-				{
+				cin.ignore();
+
+				switch (choice) {
 				case 1:	//데이터 저장
 					system("cls");
-					cout << "저장할 파일 이름 : ";
-					cin.ignore();
+					cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+					cout << "                               저장할 파일 이름 : ";
 					getline(cin, fileName);
+
 					fileSystem.WriteFile(record[0], fileName, 0);
 					fileName += "_1";
 					fileSystem.WriteFile(record[1], fileName, -1);
 					break;
 				case 2:	//데이터 불러오기
 					system("cls");
+					cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
 					fileSystem.PrintFileList();
-					cout << "불러올 파일 이름 : ";
-					cin.ignore();
+
+					cout << "                               불러올 파일 이름 : ";
 					getline(cin, fileName);
+
 					fileSystem.ReadFile(record[0], fileName);
 					midi.Midi(midi.hDevice, 0xC0, 0, record[0].Return_Instrument(), 0);
 					fileName += "_1";
@@ -162,10 +175,12 @@ int main() {
 					break;
 				case 3:	//데이터 삭제
 					system("cls");
+					cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
 					fileSystem.PrintFileList();
-					cout << "삭제할 파일 이름 : ";
-					cin.ignore();
+
+					cout << "                               삭제할 파일 이름 : ";
 					getline(cin, fileName);
+
 					fileSystem.DataDelete(fileName);
 				default:
 					break;
