@@ -50,9 +50,9 @@ void View::Piano() {
     cout << "　            　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
     cout << "　            　│    │　　│　　│    │　  │    │    │    │　　│　　│            " << endl;
     cout << "　            　│　　│　　│　　│    │　  │    │    │　　│　　│　　│            " << endl;
-    cout << "                └ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┘            " << endl;
-    cout << "필요시 Q를 눌러 메트로놈을 실행하세요. " << endl;
-    cout << endl << endl << endl;
+    cout << "                └ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┴ㅡㅡ┘            " << endl << endl;
+    cout << "    ↑↓ : 악기 변경,    Q : 메트로놈 On/Off,    ←→ : 메트로놈 BPM 변경" << endl;
+    cout << endl << endl << endl << endl;
 }
 void View::DisplayInput(int key, bool isPush) {
     NowCursorPosition(x, y);
@@ -184,7 +184,8 @@ void View::Home() {
     cout << "                                    1. Free Play♪\n" << endl;
     cout << "                                    2. Record♬\n" << endl;
     cout << "                                    3. Save / Load♪\n" << endl;
-    cout << "                                    4. Exit♬\n\n" << endl;
+    cout << "                                    4. Help♬\n" << endl;
+    cout << "                                    5. Exit♪\n\n" << endl;
     cout << "                                    input number : ";
 }
 void View::Record_Select() {
@@ -255,17 +256,17 @@ void View::NowCursorPosition(int& x, int& y) {
 void View::ViewInstrument(int instrument) {
     //악기 종류 배열 생성하기
     NowCursorPosition(x, y);
-    Gotoxy(0, 13);
+    Gotoxy(0, 15);
     cout << "                                                 ";    //이전 문자열 지우기 위함
-    Gotoxy(0, 13);
+    Gotoxy(0, 15);
     cout << "Instrument : " << instrumentText[instrument];
     Gotoxy(x, y);
 }
 void View::ViewMetronomeBPM(int bpm) {
     NowCursorPosition(x, y);
-    Gotoxy(0, 14);
+    Gotoxy(0, 16);
     cout << "                                                 ";    //이전 문자열 지우기 위함
-    Gotoxy(0, 14);
+    Gotoxy(0, 16);
     cout << "메트로놈 BPM : " << bpm;
     Gotoxy(x, y);
 }

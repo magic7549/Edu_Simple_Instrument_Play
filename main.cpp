@@ -27,7 +27,7 @@ int main() {
 	/// SetConsoleMode(handle, prevMode & ~ENABLE_QUICK_EDIT_MODE | ENABLE_MOUSE_INPUT);
 	/// </마우스 이벤트>
 
-	//system("explorer help.html");
+
 
 	int choice;
 	while (true) {
@@ -188,7 +188,11 @@ int main() {
 			} while (choice != 4);
 			break;
 		}
-		case 4:
+		case 4:	//도움말
+			//html 하이퍼링크
+			system("explorer help.html");
+			break;
+		case 5: //종료
 			return 0;
 		default:
 			break;
