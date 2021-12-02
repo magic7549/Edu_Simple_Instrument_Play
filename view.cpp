@@ -199,6 +199,8 @@ void View::Record_Select() {
 }
 void View::Record() {
     system("cls");
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
+    cout << "                             ";
     cout << "3..." << " ";
     Sleep(1000);
     cout << "2..." << " ";

@@ -20,15 +20,6 @@ int main() {
 	view.RemoveScrollbar();
 	view.ConsoleSetting();
 
-	/// <마우스 이벤트>
-	/// DWORD prevMode = 0;
-	/// HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-	/// GetConsoleMode(handle, &prevMode);
-	/// SetConsoleMode(handle, prevMode & ~ENABLE_QUICK_EDIT_MODE | ENABLE_MOUSE_INPUT);
-	/// </마우스 이벤트>
-
-
-
 	int choice;
 	while (true) {
 		view.Home();
