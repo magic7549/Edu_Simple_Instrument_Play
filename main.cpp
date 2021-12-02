@@ -106,6 +106,7 @@ int main() {
 				}
 				case 2: {
 					system("cls");
+					view.Piano();
 
 					//Àç»ý
 					thread t1(&RecordNoteClass::ReplayNote, &record[0], midi, 0);
