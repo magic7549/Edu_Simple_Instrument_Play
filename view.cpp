@@ -261,7 +261,7 @@ void View::ViewInstrument(int instrument) {
     Gotoxy(0, 15);
     cout << "                                                 ";    //이전 문자열 지우기 위함
     Gotoxy(0, 15);
-    cout << "Instrument : " << instrumentText[instrument - 1];
+    cout << "Instrument : " << instrumentText[instrument];
     Gotoxy(x, y);
 }
 void View::ViewMetronomeBPM(int bpm) {

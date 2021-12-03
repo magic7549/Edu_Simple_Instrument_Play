@@ -96,7 +96,7 @@ int main() {
 					view.Record();
 					view.Piano();
 					cout << "녹음 종료 : ESC" << endl;
-					view.ViewInstrument(midi.instrument);
+					view.ViewInstrument(midi.instrument - 1);
 					record[choice - 1].RecordNote(midi, choice - 1);
 
 					//메트로놈이 켜졌으면 종료
