@@ -11,7 +11,7 @@ using namespace std;
 int main() {
 	View view;
 	MidiClass midi;
-	RecordNoteClass record[2];
+	RecordNoteClass record[3];
 	FileInOut fileSystem;
 
 	midi.MidiAllo(midi.hDevice);
@@ -44,15 +44,15 @@ int main() {
 					do {
 						system("cls");
 						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
-						cout << "                        녹음할 트랙을 선택해주세요(1 ~ 2) : ";
+						cout << "                        녹음할 트랙을 선택해주세요(1 ~ 3) : ";
 						cin >> choice;
 						cin.ignore();
 
-						if (choice <= 0 || choice > 2) {
-							cout << endl << "                        1 ~ 2번 트랙을 선택해주세요";
+						if (choice <= 0 || choice > 3) {
+							cout << endl << "                        1 ~ 3번 트랙을 선택해주세요";
 							Sleep(1000);
 						}
-					} while (choice <= 0 || choice > 2);
+					} while (choice <= 0 || choice > 3);
 
 					//악기 선택
 					do {
@@ -95,6 +95,7 @@ int main() {
 
 					view.Record();
 					view.Piano();
+					cout << "녹음 종료 : ESC" << endl;
 					view.ViewInstrument(midi.instrument);
 					record[choice - 1].RecordNote(midi, choice - 1);
 
@@ -111,9 +112,12 @@ int main() {
 					//재생
 					thread t1(&RecordNoteClass::ReplayNote, &record[0], midi, 0);
 					thread t2(&RecordNoteClass::ReplayNote, &record[1], midi, 1);
+					thread t3(&RecordNoteClass::ReplayNote, &record[2], midi, 2);
+
 
 					t1.join();
 					t2.join();
+					t3.join();
 					break;
 				}
 				case 3:	//데이터 초기화
@@ -150,6 +154,8 @@ int main() {
 					fileSystem.WriteFile(record[0], fileName, 0);
 					fileName += "_1";
 					fileSystem.WriteFile(record[1], fileName, -1);
+					fileName[fileName.length() - 1] = '2';
+					fileSystem.WriteFile(record[2], fileName, -1);
 					break;
 				case 2:	//데이터 불러오기
 					system("cls");
@@ -164,6 +170,10 @@ int main() {
 					fileName += "_1";
 					fileSystem.ReadFile(record[1], fileName);
 					midi.Midi(midi.hDevice, 0xC0, 1, record[1].Return_Instrument(), 0);
+
+					fileName[fileName.length() - 1] = '2';
+					fileSystem.ReadFile(record[2], fileName);
+					midi.Midi(midi.hDevice, 0xC0, 2, record[2].Return_Instrument(), 0);
 					break;
 				case 3:	//데이터 삭제
 					system("cls");

@@ -65,7 +65,7 @@ void MidiClass::PlayMidi() {
 
                     //누른 키에 해당하는 음 재생
                     //0x90 : Note on
-                    Midi(hDevice, 0x90, 10, (BYTE)(octave + key), 127);
+                    Midi(hDevice, 0x90, 14, (BYTE)(octave + key), 127);
 
                     //음계 화면 출력
                     view.DisplayInput(key, true);
@@ -84,7 +84,7 @@ void MidiClass::PlayMidi() {
 
                     //소리 멈춤
                     //0x80 : Note off
-                    Midi(hDevice, 0x80, 10, (BYTE)(octave + key), 127);
+                    Midi(hDevice, 0x80, 14, (BYTE)(octave + key), 127);
 
                     //입력 표시 지움
                     view.DisplayInput(key, false);

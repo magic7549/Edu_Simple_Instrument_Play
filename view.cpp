@@ -112,7 +112,7 @@ void View::DisplayInput(int key, bool isPush) {
         break;
     }
     if (isPush) {
-        cout << "★";
+        cout << "♪";
     }
     else {
         cout << "　";
@@ -261,7 +261,7 @@ void View::ViewInstrument(int instrument) {
     Gotoxy(0, 15);
     cout << "                                                 ";    //이전 문자열 지우기 위함
     Gotoxy(0, 15);
-    cout << "Instrument : " << instrumentText[instrument];
+    cout << "Instrument : " << instrumentText[instrument - 1];
     Gotoxy(x, y);
 }
 void View::ViewMetronomeBPM(int bpm) {
