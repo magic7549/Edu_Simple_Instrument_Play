@@ -148,42 +148,47 @@ int main() {
 				case 1:	//데이터 저장
 					system("cls");
 					cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
-					cout << "                               저장할 파일 이름 : ";
+					cout << "                       저장할 파일 이름 (exit 입력 시 취소) : ";
 					getline(cin, fileName);
 
-					fileSystem.WriteFile(record[0], fileName, 0);
-					fileName += "_1";
-					fileSystem.WriteFile(record[1], fileName, -1);
-					fileName[fileName.length() - 1] = '2';
-					fileSystem.WriteFile(record[2], fileName, -1);
+					if (fileName != "exit") {
+						fileSystem.WriteFile(record[0], fileName, 0);
+						fileName += "_1";
+						fileSystem.WriteFile(record[1], fileName, -1);
+						fileName[fileName.length() - 1] = '2';
+						fileSystem.WriteFile(record[2], fileName, -1);
+					}
 					break;
 				case 2:	//데이터 불러오기
 					system("cls");
 					cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
 					fileSystem.PrintFileList();
 
-					cout << "                               불러올 파일 이름 : ";
+					cout << "                       불러올 파일 이름 (exit 입력 시 취소) : ";
 					getline(cin, fileName);
 
-					fileSystem.ReadFile(record[0], fileName);
-					midi.Midi(midi.hDevice, 0xC0, 0, record[0].Return_Instrument(), 0);
-					fileName += "_1";
-					fileSystem.ReadFile(record[1], fileName);
-					midi.Midi(midi.hDevice, 0xC0, 1, record[1].Return_Instrument(), 0);
-
-					fileName[fileName.length() - 1] = '2';
-					fileSystem.ReadFile(record[2], fileName);
-					midi.Midi(midi.hDevice, 0xC0, 2, record[2].Return_Instrument(), 0);
+					if (fileName != "exit") {
+						fileSystem.ReadFile(record[0], fileName);
+						midi.Midi(midi.hDevice, 0xC0, 0, record[0].Return_Instrument(), 0);
+						fileName += "_1";
+						fileSystem.ReadFile(record[1], fileName);
+						midi.Midi(midi.hDevice, 0xC0, 1, record[1].Return_Instrument(), 0);
+						fileName[fileName.length() - 1] = '2';
+						fileSystem.ReadFile(record[2], fileName);
+						midi.Midi(midi.hDevice, 0xC0, 2, record[2].Return_Instrument(), 0);
+					}
 					break;
 				case 3:	//데이터 삭제
 					system("cls");
 					cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
 					fileSystem.PrintFileList();
 
-					cout << "                               삭제할 파일 이름 : ";
+					cout << "                    삭제할 파일 이름 (exit 입력 시 취소) : ";
 					getline(cin, fileName);
 
-					fileSystem.DataDelete(fileName);
+					if (fileName != "exit") {
+						fileSystem.DataDelete(fileName);
+					}
 				default:
 					break;
 				}
