@@ -2,7 +2,7 @@
 
 //생성자를 통해 멤버 변수(배열) 초기화
 View::View() : instrumentText{
-    "그랜드 피아노", "브라이트 피아노", "전자 그랜드 피아노", "홍키통크 피아노", "전자 피아노 1", "전자 피아노 2", 
+    "그랜드 피아노", "브라이트 피아노", "전자 그랜드 피아노", "홍키통크 피아노", "전자 피아노 1", "전자 피아노 2",
     "하프시코드", "클라비넷", "첼레스타","글로켄슈필","뮤직박스","비브라폰","마림바","실로폰",
     "튜블러 벨","덜시머","드로우바 오르간","퍼커시브 오르간","록 오르간","파이프 오르간","풍금","아코디언",
     "하모니카","탱고 아코디언","어쿠스틱 기타(나일론 줄)","어쿠스틱 기타(금속 줄)","전기 기타(재즈)","전기 기타(클린)","전기 기타(음소거)","전기 기타(오버드라이브)",
@@ -178,12 +178,12 @@ void View::ShowDoReMi(BYTE key) {
     }
 }
 void View::Home() {
-	system("cls");
+    system("cls");
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
     cout << "                                       ♬Start♬\n" << endl;
     cout << "                                    1. Free Play♪\n" << endl;
     cout << "                                    2. Record♬\n" << endl;
-    cout << "                                    3. Save / Load♪\n" << endl;
+    cout << "                                    3. Save / Load / Delete♪\n" << endl;
     cout << "                                    4. Help♬\n" << endl;
     cout << "                                    5. Exit♪\n\n" << endl;
     cout << "                                    input number : ";
