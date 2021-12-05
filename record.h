@@ -22,6 +22,7 @@ public:
     //ex) recordNote[0] 에는 "도"에 해당하는 시간 값 저장
     vector<double> recordNote[NKEY];
 
+    RecordNoteClass();
     void ResetInputTotalNum();
     void AddInputTotalNum();
     void DivideInputTotalNum();

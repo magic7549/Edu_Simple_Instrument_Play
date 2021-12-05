@@ -29,8 +29,6 @@ int main() {
 		switch (choice)	{
 		case 1:	//자유 연주
 			view.Piano();
-			view.ViewInstrument(midi.instrument);
-			view.ViewMetronomeBPM(midi.ReturnBPM());
 			midi.PlayMidi();
 			break;
 		case 2:	//녹음 관련
@@ -60,16 +58,17 @@ int main() {
 						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
 						cout << "                        악기를 선택해주세요(1 ~ 128) : ";
 						cin >> midi.instrument;
+						midi.instrument -= 1;
 						cin.ignore();
 
-						if (midi.instrument >= 1 && midi.instrument <= 128) {
-							midi.Midi(midi.hDevice, 0xC0, choice - 1, midi.instrument - 1, 0);
+						if (midi.instrument >= 0 && midi.instrument <= 127) {
+							midi.Midi(midi.hDevice, 0xC0, choice - 1, midi.instrument, 0);
 						}
 						else {
 							cout << endl << "                        1 ~ 128 중 선택해주세요";
 							Sleep(1000);
 						}
-					} while (midi.instrument <= 0 || midi.instrument > 128);
+					} while (midi.instrument < 0 || midi.instrument >= 128);
 
 					//메트로놈 설정
 					int setBPM;
@@ -96,7 +95,7 @@ int main() {
 					view.Record();
 					view.Piano();
 					cout << "녹음 종료 : ESC" << endl;
-					view.ViewInstrument(midi.instrument - 1);
+					view.ViewInstrument(midi.instrument);
 					record[choice - 1].RecordNote(midi, choice - 1);
 
 					//메트로놈이 켜졌으면 종료
@@ -153,10 +152,8 @@ int main() {
 
 					if (fileName != "exit") {
 						fileSystem.WriteFile(record[0], fileName, 0);
-						fileName += "_1";
-						fileSystem.WriteFile(record[1], fileName, -1);
-						fileName[fileName.length() - 1] = '2';
-						fileSystem.WriteFile(record[2], fileName, -1);
+						fileSystem.WriteFile(record[1], fileName + "_1", -1);
+						fileSystem.WriteFile(record[2], fileName + "_2", -1);
 					}
 					break;
 				case 2:	//데이터 불러오기
@@ -170,11 +167,11 @@ int main() {
 					if (fileName != "exit") {
 						fileSystem.ReadFile(record[0], fileName);
 						midi.Midi(midi.hDevice, 0xC0, 0, record[0].Return_Instrument(), 0);
-						fileName += "_1";
-						fileSystem.ReadFile(record[1], fileName);
+
+						fileSystem.ReadFile(record[1], fileName + "_1");
 						midi.Midi(midi.hDevice, 0xC0, 1, record[1].Return_Instrument(), 0);
-						fileName[fileName.length() - 1] = '2';
-						fileSystem.ReadFile(record[2], fileName);
+
+						fileSystem.ReadFile(record[2], fileName + "_2");
 						midi.Midi(midi.hDevice, 0xC0, 2, record[2].Return_Instrument(), 0);
 					}
 					break;

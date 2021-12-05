@@ -51,6 +51,15 @@ void MidiClass::PlayMidi() {
     View view;
     BYTE key;
 
+    //초기화
+    instrument = 0;
+    bpm = 120;
+
+    //초기화에 따른 텍스트 및 악기 설정
+    view.ViewInstrument(instrument);
+    view.ViewMetronomeBPM(bpm);
+    Midi(hDevice, 0xC0, 14, instrument, 0);
+
     while (true)
     {
         //소리 출력

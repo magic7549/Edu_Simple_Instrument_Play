@@ -51,7 +51,6 @@ void View::Piano() {
     cout << "¡¡            ¡¡¦¢    ¦¢¡¡¡¡¦¢¡¡¡¡¦¢    ¦¢¡¡  ¦¢    ¦¢    ¦¢    ¦¢¡¡¡¡¦¢¡¡¡¡¦¢            " << endl;
     cout << "¡¡            ¡¡¦¢¡¡¡¡¦¢¡¡¡¡¦¢¡¡¡¡¦¢    ¦¢¡¡  ¦¢    ¦¢    ¦¢¡¡¡¡¦¢¡¡¡¡¦¢¡¡¡¡¦¢            " << endl;
     cout << "                ¦¦¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦ª¤Ñ¤Ñ¦¥            " << endl << endl;
-    //cout << "    ¡è¡é : ¾Ç±â º¯°æ,    Q : ¸ÞÆ®·Î³ð On/Off,    ¡ç¡æ : ¸ÞÆ®·Î³ð BPM º¯°æ" << endl;
     cout << endl << endl << endl << endl << endl;
 }
 void View::DisplayInput(int key, bool isPush) {

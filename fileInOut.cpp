@@ -23,37 +23,42 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName, int isBase) 
         //파일 존재하지 않을 경우
         //파일 끝에 이어서 쓰기 모드
         outFileList.open("save_list.txt", ios::app);
-    }
 
-    //파일 입출력
-    fout.open(fileName + ".txt");
-
-    if (fout.fail() || outFileList.fail()) {
-        cout << "데이터를 저장하는데 실패하였습니다.";
-    }
-    else {
-        //악기 종류 저장
-        fout << record.Return_Instrument() << endl;
-
-        for (int key = 0; key < NKEY; key++) {
-            for (int i = 0; i < (int)record.recordNote[key].size(); i++) {
-                //무슨음이 몇초에 눌렸는지 저장
-                //ex) 2:0.568  => "레" 0.568초에 눌림
-                fout << key << ":" << record.recordNote[key][i] << endl;
-            }
-        }
         //여러 개의 트랙이 저장되더라도 세이브 리스트에는
         //하나의 파일 이름만 저장
         if (isBase >= 0) {
             outFileList << fileName << endl;
         }
-        fout.close();
         outFileList.close();
+    }
+
+    //파일 입출력
+    fout.open(fileName + ".txt");
+
+    if (fout.fail()) {
+        cout << "데이터를 저장하는데 실패하였습니다.";
+        Sleep(333);
+    }
+    else {
+        if (record.Return_Instrument() != NULL) {
+            //악기 종류 저장
+            fout << record.Return_Instrument() << endl;
+
+            for (int key = 0; key < NKEY; key++) {
+                for (int i = 0; i < (int)record.recordNote[key].size(); i++) {
+                    //무슨음이 몇초에 눌렸는지 저장
+                    //ex) 2:0.568  => "레" 0.568초에 눌림
+                    fout << key << ":" << record.recordNote[key][i] << endl;
+                }
+            }
+        }
+
+        fout.close();
 
         system("cls");
         cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
         cout << "                                저장을 완료하였습니다." << endl;
-        Sleep(1000);
+        Sleep(333);
     }
 }
 //데이터 불러오기
@@ -69,7 +74,7 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
         system("cls");
         cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
         cout << "                                저장된 데이터가 없습니다." << endl;
-        Sleep(1000);
+        Sleep(333);
     }
     else {
         //txt파일로 저장된 데이터를 담는 변수
@@ -80,18 +85,20 @@ void FileInOut::ReadFile(RecordNoteClass& record, string fileName) {
 
         //악기 종류 불러오기
         getline(fin, loadSaveFile);
-        record.Set_Instrument(stoi(loadSaveFile));
+        if (loadSaveFile != "") {
+            record.Set_Instrument(stoi(loadSaveFile));
 
-        //저장된 데이터가 끝이 날때까지 반복
-        while (getline(fin, loadSaveFile)) {
-            RoadRecordNote(record, loadSaveFile);
+            //저장된 데이터가 끝이 날때까지 반복
+            while (getline(fin, loadSaveFile)) {
+                RoadRecordNote(record, loadSaveFile);
+            }
+            record.DivideInputTotalNum();
         }
-        record.DivideInputTotalNum();
 
         system("cls");
         cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n " << endl;
         cout << "                         데이터를 불러오는데 성공하였습니다." << endl;
-        Sleep(500);
+        Sleep(333);
 
         fin.close();
     }
@@ -187,6 +194,10 @@ void FileInOut::DataDelete(string fileName) {
 
         //나머지 트랙 파일도 삭제
         address = fileName + "_1.txt";
+        c = address.c_str();
+        remove(c);
+
+        address = fileName + "_2.txt";
         c = address.c_str();
         remove(c);
     }

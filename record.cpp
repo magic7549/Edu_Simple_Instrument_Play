@@ -1,4 +1,11 @@
 #include "record.h"
+RecordNoteClass::RecordNoteClass() {
+    instrument = NULL;
+    inputTotalNum = 0;
+    start = 0;
+    finish = 0;
+    duration = 0;
+}
 
 void RecordNoteClass::ResetInputTotalNum() {
     inputTotalNum = 0;
@@ -102,6 +109,8 @@ void RecordNoteClass::ReplayNote(MidiClass midi, int channel) {
     BYTE key;
     View view;
     MidiClass mc;
+
+    //midi.Midi(midi.hDevice, 0xC0, channel, instrument, 0);
 
     //녹음 재생
     int inputKeyNum[NKEY] = { 0, };      //재생시 각 음계마다 몇번 째 배열까지 재생했는지 체크
