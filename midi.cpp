@@ -98,7 +98,7 @@ void MidiClass::PlayMidi() {
             // 0 ~ 127
             if (instrument < 127) {
                 instrument++;
-                Midi(hDevice, 0xC0, 10, instrument, 0);
+                Midi(hDevice, 0xC0, 14, instrument, 0);
                 view.ViewInstrument(instrument);
                 Sleep(200);
             }
@@ -108,7 +108,7 @@ void MidiClass::PlayMidi() {
             // 0 ~ 127
             if (instrument > 0) {
                 instrument--;
-                Midi(hDevice, 0xC0, 10, instrument, 0);
+                Midi(hDevice, 0xC0, 14, instrument, 0);
                 view.ViewInstrument(instrument);
                 Sleep(200);
             }
