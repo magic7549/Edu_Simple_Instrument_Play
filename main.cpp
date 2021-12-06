@@ -84,6 +84,7 @@ int main() {
 							midi.Metronome_OnOff();
 						}
 						else if (setBPM == 0) {
+							midi.SetBPM(setBPM);
 							break;
 						}
 						else {
@@ -94,8 +95,9 @@ int main() {
 
 					view.Record();
 					view.Piano();
-					cout << "녹음 종료 : ESC" << endl;
+					cout << "녹음 종료 : ESC" << endl << endl;
 					view.ViewInstrument(midi.instrument);
+					view.ViewMetronomeBPM(midi.ReturnBPM());
 					record[choice - 1].RecordNote(midi, choice - 1);
 
 					//메트로놈이 켜졌으면 종료

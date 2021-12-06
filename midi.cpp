@@ -55,6 +55,8 @@ void MidiClass::PlayMidi() {
     instrument = 0;
     bpm = 120;
 
+    cout << "ESC : 종료" << endl << endl;
+
     //초기화에 따른 텍스트 및 악기 설정
     view.ViewInstrument(instrument);
     view.ViewMetronomeBPM(bpm);
