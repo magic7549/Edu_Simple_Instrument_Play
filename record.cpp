@@ -110,8 +110,6 @@ void RecordNoteClass::ReplayNote(MidiClass midi, int channel) {
     View view;
     MidiClass mc;
 
-    //midi.Midi(midi.hDevice, 0xC0, channel, instrument, 0);
-
     //녹음 재생
     int inputKeyNum[NKEY] = { 0, };      //재생시 각 음계마다 몇번 째 배열까지 재생했는지 체크
     int finishRecordCheck = ReturnInputTotalNum();  //재생 완료했는지 체크
@@ -124,13 +122,13 @@ void RecordNoteClass::ReplayNote(MidiClass midi, int channel) {
         }
 
         for (key = 0; key < NKEY; key++) {
-            //시간 체크
-            finish = clock();
-            duration = (double)(finish - start) / CLOCKS_PER_SEC;
-
             //각 음계마다 저장된 값을 다 재생했을 경우 패스
             if (inputKeyNum[key] >= recordNote[key].size())
                 continue;
+
+            //시간 체크
+            finish = clock();
+            duration = (double)(finish - start) / CLOCKS_PER_SEC;
 
             //현재 시간이 녹음된 시간보다 같거나 클경우
             //즉, 각 음계를 재생할 시간이 됐을 경우
