@@ -24,6 +24,12 @@ void View::ConsoleSetting() {
     system("mode con: cols=87 lines=50");  //창 크기 변경
     system("color 00");     //배경 색 설정
     system("title Composition");  //콘솔창 타이틀 설정
+
+    //콘솔창 빠른 편집 모드 해제
+    DWORD prevMode = 0;
+    HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode(handle, &prevMode);
+    SetConsoleMode(handle, prevMode & ~ENABLE_QUICK_EDIT_MODE);
 }
 void View::RemoveScrollbar() {
     //콘솔 스크롤바 제거

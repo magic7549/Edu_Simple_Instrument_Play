@@ -25,6 +25,9 @@ int main() {
 		view.Home();
 
 		cin >> choice;
+		if (cin.fail()) {	//만약 문자가 입력되었으면 
+			cin.clear();	//초기화
+		}
 		cin.ignore();	//cin 으로 인해 버퍼에 남아있는 '\n'을 지우기 위함
 		switch (choice)	{
 		case 1:	//자유 연주
@@ -35,6 +38,9 @@ int main() {
 			do {
 				view.Record_Select();
 				cin >> choice;
+				if (cin.fail()) {	//만약 문자가 입력되었으면 
+					cin.clear();	//초기화
+				}
 				cin.ignore();
 				switch (choice) {
 				case 1: {
@@ -44,6 +50,9 @@ int main() {
 						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
 						cout << "                        녹음할 트랙을 선택해주세요(1 ~ 3) : ";
 						cin >> choice;
+						if (cin.fail()) {	//만약 문자가 입력되었으면 
+							cin.clear();	//초기화
+						}
 						cin.ignore();
 
 						if (choice <= 0 || choice > 3) {
@@ -58,8 +67,11 @@ int main() {
 						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
 						cout << "                        악기를 선택해주세요(1 ~ 128) : ";
 						cin >> midi.instrument;
-						midi.instrument -= 1;
+						if (cin.fail()) {	//만약 문자가 입력되었으면 
+							cin.clear();	//초기화
+						}
 						cin.ignore();
+						midi.instrument -= 1;
 
 						if (midi.instrument >= 0 && midi.instrument <= 127) {
 							midi.Midi(midi.hDevice, 0xC0, choice - 1, midi.instrument, 0);
@@ -77,6 +89,9 @@ int main() {
 						cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
 						cout << "      메트로놈 BPM을 설정해주세요(40BPM ~ 240BPM 설정 가능 , 0 : 비활성화) : ";
 						cin >> setBPM;
+						if (cin.fail()) {	//만약 문자가 입력되었으면 
+							cin.clear();	//초기화
+						}
 						cin.ignore();
 
 						if (setBPM >= 40 && setBPM <= 240) {
@@ -143,6 +158,9 @@ int main() {
 			do {
 				view.FileRelation();
 				cin >> choice;
+				if (cin.fail()) {	//만약 문자가 입력되었으면 
+					cin.clear();	//초기화
+				}
 				cin.ignore();
 
 				switch (choice) {
