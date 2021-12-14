@@ -1,7 +1,6 @@
 #pragma once
 #include<Windows.h>	//BYTE 형식 사용하기 위함
 #include<iostream>
-#include<conio.h>
 #include<string>
 using namespace std;
 
