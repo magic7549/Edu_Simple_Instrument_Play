@@ -34,25 +34,21 @@ void FileInOut::WriteFile(RecordNoteClass& record, string fileName, int isBase) 
 
     //파일 입출력
     fout.open(fileName + ".txt");
-
     if (fout.fail()) {
         cout << "데이터를 저장하는데 실패하였습니다.";
         Sleep(333);
     }
     else {
-        if (record.Return_Instrument() != NULL) {
-            //악기 종류 저장
-            fout << record.Return_Instrument() << endl;
+        //악기 종류 저장
+        fout << record.Return_Instrument() << endl;
 
-            for (int key = 0; key < NKEY; key++) {
-                for (int i = 0; i < (int)record.recordNote[key].size(); i++) {
-                    //무슨음이 몇초에 눌렸는지 저장
-                    //ex) 2:0.568  => "레" 0.568초에 눌림
-                    fout << key << ":" << record.recordNote[key][i] << endl;
-                }
+        for (int key = 0; key < NKEY; key++) {
+            for (int i = 0; i < (int)record.recordNote[key].size(); i++) {
+                //무슨음이 몇초에 눌렸는지 저장
+                //ex) 2:0.568  => "레" 0.568초에 눌림
+                fout << key << ":" << record.recordNote[key][i] << endl;
             }
         }
-
         fout.close();
 
         system("cls");
